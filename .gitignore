@@ -17,3 +17,12 @@ models/*.json
 
 # Streamlit caches
 .streamlit/
+
+# Local tooling / logs
+.tmp/
+.pipcache/
+*.log
+*.err
+
+# Large generated analytics tables
+data/processed/*.parquet

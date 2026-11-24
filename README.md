@@ -125,3 +125,29 @@ MIT
 ## Author
 
 Rayen Latrech · [GitHub](https://github.com/rayenlatrech)
+
+---
+
+## Extension: Digital Fraud Intelligence & Transaction Risk Analytics (added)
+
+Everything above is the original project by Rayen Latrech (MIT). The following was **added** on top of it
+as a BIML (Business Intelligence + Machine Learning) project. The original `app/streamlit/dashboard.py` is unchanged.
+
+```bash
+python -m src.analytics.build_scores     # scores the 7-day holdout, builds anomaly scores (run once)
+streamlit run app/intel/app.py           # the multi-module dashboard
+```
+
+| Module | What it shows |
+|---|---|
+| Executive Overview | Transactions, fraud rate, financial loss, trends, model quality |
+| Transaction Analytics | Filterable volume, amount distribution, type share |
+| Fraud Detection | Threshold tuning, precision/recall, PR curve, confusion matrix, flagged list |
+| Risk Intelligence | Low/Medium/High/Critical levels, fraud rate per level, type x hour heatmap |
+| Geographic Intelligence | Bubble map by region (**simulated**: PaySim has no location data) |
+| Anomaly Detection | Unsupervised Isolation Forest score, lift vs the baseline fraud rate |
+| Investigation Assistant | Plain-English reasons for a flag (SHAP + statistics, rule-based) |
+| What-if Simulator | Change type/amount/time, see risk, SHAP and sensitivity curves |
+| Reports & Insights | Key findings, downloadable HTML report and CSV of alerts |
+
+Added files: `src/analytics/build_scores.py`, `app/intel/{app,common,views}.py`, `.streamlit/config.toml`; `plotly` added to requirements.
