@@ -151,3 +151,15 @@ streamlit run app/intel/app.py           # the multi-module dashboard
 | Reports & Insights | Key findings, downloadable HTML report and CSV of alerts |
 
 Added files: `src/analytics/build_scores.py`, `app/intel/{app,common,views}.py`, `.streamlit/config.toml`; `plotly` added to requirements.
+
+### Deploying to Streamlit Community Cloud
+
+The three files the app needs at runtime are committed (about 46 MB total):
+`data/processed/intel_all.parquet`, `data/processed/intel_scored.parquet` and `models/xgboost_gpu_model.json`.
+The raw dataset and large intermediate files are not, and are not required to run the dashboard.
+
+1. Go to https://share.streamlit.io and sign in with GitHub.
+2. New app, pick this repository, branch `main`, **Main file path: `app/intel/app.py`**.
+3. Deploy. (Vercel is not suitable: Streamlit needs a long-running server.)
+
+To retrain from scratch instead, follow "How to run" above, then `python -m src.analytics.build_scores`.

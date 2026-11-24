@@ -19,7 +19,6 @@ from src.config import DATA_DIR, MODEL_DIR
 
 ALL_PATH = DATA_DIR / "processed" / "intel_all.parquet"
 SCORED_PATH = DATA_DIR / "processed" / "intel_scored.parquet"
-FEATS_PATH = DATA_DIR / "processed" / "paysim_features.parquet"
 MODEL_PATH = MODEL_DIR / "xgboost_gpu_model.json"
 
 TYPES = ["PAYMENT", "CASH_OUT", "CASH_IN", "TRANSFER", "DEBIT"]
@@ -108,10 +107,9 @@ def load_scored() -> pd.DataFrame:
     return pd.read_parquet(SCORED_PATH)
 
 
-@st.cache_data
 def feature_columns() -> list:
-    import pyarrow.parquet as pq
-    return [c for c in pq.ParquetFile(FEATS_PATH).schema.names if c != "isFraud"]
+    """Training column order, read from the model itself (no large feature file needed at runtime)."""
+    return list(load_model()[0].get_booster().feature_names)
 
 
 @st.cache_resource(show_spinner="Loading model...")

@@ -9,14 +9,18 @@ __pycache__/
 # Data (DO NOT upload 6.3M rows)
 data/raw/*
 data/processed/*.parquet
+!data/processed/intel_all.parquet
+!data/processed/intel_scored.parquet
 
 # Models (optional – keep shap csv, but avoid huge models)
 models/*.pkl
 models/*.json
+!models/xgboost_gpu_model.json
 !models/shap_global_importance.csv
 
 # Streamlit caches
-.streamlit/
+.streamlit/*
+!.streamlit/config.toml
 
 # Local tooling / logs
 .tmp/
@@ -24,5 +28,3 @@ models/*.json
 *.log
 *.err
 
-# Large generated analytics tables
-data/processed/*.parquet
